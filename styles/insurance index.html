@@ -1,0 +1,560 @@
+<html>
+<html <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Insurance Needs
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0b0d12;
+            --panel: #11151c;
+            --panel-2: #151b24;
+            --border: #252d3a;
+            --text: #f4f7fb;
+            --muted: #9aa7ba;
+            --maroon: #6f1d2c;
+            --maroon-2: #8b2335;
+            --blue: #8ecae6;
+            --blue-2: #5fa8d3;
+            --green: #1b4332;
+            --red: #7f1d1d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            letter-spacing: 0.1px;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+        }
+
+        .sidebar {
+            background: #0f1319;
+            border-right: 1px solid var(--border);
+            padding: 22px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: var(--maroon);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: var(--white);
+            font-size: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 650;
+        }
+
+        .brand p {
+            margin: 3px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 12px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--blue-2);
+            box-shadow: 0 0 0 3px rgba(95, 168, 211, 0.12);
+        }
+
+        .sidebar-actions {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        button {
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.18s ease;
+        }
+
+        .btn-primary {
+            background: var(--maroon);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--maroon-2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--blue);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--blue-2);
+            color: var(--white);
+        }
+
+        .main {
+            padding: 20px;
+            background: #0b0d12;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            gap: 16px;
+        }
+
+        .topbar-left h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 680;
+        }
+
+        .topbar-left p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .pill {
+            padding: 8px 12px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .dashboard {
+            display: grid;
+            gap: 16px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .card .label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .card .value {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .card .sub {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .card.highlight {
+            border-color: rgba(142, 202, 230, 0.35);
+        }
+
+        .value.maroon {
+            color: #ffccd5;
+        }
+
+        .value.blue {
+            color: var(--blue);
+        }
+
+        .value.white {
+            color: var(--white);
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 16px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 10px;
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 650;
+        }
+
+        .panel-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .chart-wrap {
+            height: 360px;
+        }
+
+        .breakdown {
+            display: grid;
+            gap: 12px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .breakdown-row:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-row .name {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .breakdown-row .amt {
+            font-weight: 650;
+            font-size: 15px;
+        }
+
+        .recommendation-box {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            background: #0d1218;
+            border: 1px solid var(--border);
+        }
+
+        .recommendation-box h3 {
+            margin: 0 0 8px;
+            font-size: 15px;
+        }
+
+        .recommendation-box p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .mini-card {
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .mini-card .k {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .mini-card .v {
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .footer-note {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .positive {
+            color: #b7f0d8;
+        }
+
+        .negative {
+            color: #ffb3b3;
+        }
+
+        @media (max-width: 1200px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .panel-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mini-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo">LI</div>
+                <div>
+                    <h1>Life Insurance Model</h1>
+                    <p>Needs analysis dashboard</p>
+                </div>
+            </div>
+            <div class="section-title">Client Inputs</div>
+            <div class="form-grid">
+                <div class="field"> <label for="clientName">Client Name</label> <input
+                      id="clientName" type="text" value="John Smith" /> </div>
+                <div class="field"> <label for="age">Age</label> <input id="age" type="number"
+                      value="35" min="18" max="80" /> </div>
+                <div class="field"> <label for="retirementAge">Target Retirement Age</label> <input
+                      id="retirementAge" type="number" value="65" min="50" max="80" /> </div>
+                <div class="field"> <label for="income">Annual Income</label> <input id="income"
+                      type="number" value="80000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="spouseIncome">Spouse Income</label> <input
+                      id="spouseIncome" type="number" value="40000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="incomeYears">Income Replacement Years</label> <input
+                      id="incomeYears" type="number" value="20" min="1" max="40" /> </div>
+                <div class="field"> <label for="children">Number of Children</label> <input
+                      id="children" type="number" value="2" min="0" max="10" /> </div>
+                <div class="field"> <label for="educationPerChild">Education Goal Per Child</label>
+                    <input id="educationPerChild" type="number" value="75000" min="0" step="5000" />
+                </div>
+                <div class="field"> <label for="mortgage">Mortgage Balance</label> <input
+                      id="mortgage" type="number" value="250000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="otherDebt">Other Debt</label> <input id="otherDebt"
+                      type="number" value="50000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="finalExpenses">Final Expenses</label> <input
+                      id="finalExpenses" type="number" value="20000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="emergencyFund">Emergency Fund Need</label> <input
+                      id="emergencyFund" type="number" value="30000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="savings">Liquid Savings / Investments</label> <input
+                      id="savings" type="number" value="50000" min="0" step="1000" /> </div>
+                <div class="field"> <label for="existingCoverage">Existing Life Insurance</label>
+                    <input id="existingCoverage" type="number" value="150000" min="0" step="1000" />
+                </div>
+            </div>
+            <div class="sidebar-actions"> <button class="btn-primary" id="calculateBtn">Analyze
+                    Needs</button> <button class="btn-secondary" id="resetBtn">Reset Demo
+                    Values</button> </div>
+        </aside>
+        <main class="main">
+            <div class="topbar">
+                <div class="topbar-left">
+                    <h2 id="pageTitle">Insurance Needs Dashboard</h2>
+                    <p>Professional needs analysis with recommendation logic and time-based coverage
+                        graph.</p>
+                </div>
+                <div class="pill" id="termPill">Suggested Term: 20 Years</div>
+            </div>
+            <div class="dashboard">
+                <section class="cards">
+                    <div class="card highlight">
+                        <div class="label">Recommended Coverage</div>
+                        <div class="value white" id="recommendedCoverage">$0</div>
+                        <div class="sub">Total estimated death benefit need</div>
+                    </div>
+                    <div class="card">
+                        <div class="label">Current Coverage</div>
+                        <div class="value blue" id="currentCoverage">$0</div>
+                        <div class="sub">Existing insurance in force</div>
+                    </div>
+                    <div class="card">
+                        <div class="label">Coverage Gap</div>
+                        <div class="value maroon" id="coverageGap">$0</div>
+                        <div class="sub">Additional protection potentially needed</div>
+                    </div>
+                    <div class="card">
+                        <div class="label">Suggested Term Length</div>
+                        <div class="value white" id="suggestedTermValue">20 Years</div>
+                        <div class="sub">Based on age and replacement horizon</div>
+                    </div>
+                </section>
+                <section class="panel-grid">
+                    <div class="card">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-title">Policy Need Over Time</div>
+                                <div class="panel-subtitle">Projected coverage need declines as
+                                    obligations roll off</div>
+                            </div>
+                        </div>
+                        <div class="chart-wrap"> <canvas id="needsChart"></canvas> </div>
+                    </div>
+                    <div class="card">
+                        <div class="panel-header">
+                            <div>
+                                <div class="panel-title">Needs Breakdown</div>
+                                <div class="panel-subtitle">Deterministic formula components</div>
+                            </div>
+                        </div>
+                        <div class="breakdown">
+                            <div class="breakdown-row">
+                                <div class="name">Income Replacement</div>
+                                <div class="amt" id="incomeReplacementOutput">$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Education Funding</div>
+                                <div class="amt" id="educationOutput">$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Mortgage Payoff</div>
+                                <div class="amt" id="mortgageOutput">$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Other Debt</div>
+                                <div class="amt" id="debtOutput">$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Final Expenses</div>
+                                <div class="amt" id="finalExpenseOutput">$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Emergency Reserve</div>
+                                <div class="amt" id="emergencyOutput">$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Assets Offset</div>
+                                <div class="amt negative" id="assetsOffsetOutput">-$0</div>
+                            </div>
+                            <div class="breakdown-row">
+                                <div class="name">Existing Coverage Offset</div>
+                                <div class="amt negative" id="existingOffsetOutput">-$0</div>
+                            </div>
+                        </div>
+                        <div class="recommendation-box">
+                            <h3 id="recommendationTitle">Advisor View</h3>
+                            <p id="recommendationText"> Enter client details and click Analyze Needs
+                                to generate a recommendation. </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="mini-grid">
+                    <div class="mini-card">
+                        <div class="k">Income Dependency Ratio</div>
+                        <div class="v" id="incomeDependencyRatio">0%</div>
+                        <div class="footer-note">Measures how much of household income depends on
+                            the insured.</div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="k">Years to Retirement</div>
+                        <div class="v" id="yearsToRetirement">0</div>
+                        <div class="footer-note">Used to constrain the recommendation horizon.</div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="k">Net Need After Offsets</div>
+                        <div class="v" id="netNeedOutput">$0</div>
+                        <div class="footer-note">What the calculator identifies as remaining
+                            protection need.</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script> const $ = (id) => document.getElementById(id); const currency = (num) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0, }).format(Number(num) || 0); const percent = (num) => `${(num * 100).toFixed(0)}%`; const demoValues = { clientName: "John Smith", age: 35, retirementAge: 65, income: 80000, spouseIncome: 40000, incomeYears: 20, children: 2, educationPerChild: 75000, mortgage: 250000, otherDebt: 50000, finalExpenses: 20000, emergencyFund: 30000, savings: 50000, existingCoverage: 150000, }; function getInputs() { return { clientName: $("clientName").value.trim() || "Client", age: Number($("age").value), retirementAge: Number($("retirementAge").value), income: Number($("income").value), spouseIncome: Number($("spouseIncome").value), incomeYears: Number($("incomeYears").value), children: Number($("children").value), educationPerChild: Number($("educationPerChild").value), mortgage: Number($("mortgage").value), otherDebt: Number($("otherDebt").value), finalExpenses: Number($("finalExpenses").value), emergencyFund: Number($("emergencyFund").value), savings: Number($("savings").value), existingCoverage: Number($("existingCoverage").value), }; } function calculateInsuranceNeeds(data) { const yearsToRetirement = Math.max(data.retirementAge - data.age, 0); const effectiveIncomeYears = Math.max(Math.min(data.incomeYears, yearsToRetirement || data.incomeYears), 1); const householdIncome = data.income + data.spouseIncome; const insuredIncomeShare = householdIncome > 0 ? data.income / householdIncome : 1; // Main logic // Replace 70% of insured income for the chosen horizon. const incomeReplacement = data.income * 0.7 * effectiveIncomeYears; const educationFund = data.children * data.educationPerChild; const mortgagePayoff = data.mortgage; const debtPayoff = data.otherDebt; const finalExpenseNeed = data.finalExpenses; const emergencyReserveNeed = data.emergencyFund; const grossNeed = incomeReplacement + educationFund + mortgagePayoff + debtPayoff + finalExpenseNeed + emergencyReserveNeed; const offsets = data.savings + data.existingCoverage; const netNeed = Math.max(grossNeed - offsets, 0); let suggestedTerm = 10; if (effectiveIncomeYears >= 25) suggestedTerm = 30; else if (effectiveIncomeYears >= 15) suggestedTerm = 20; else suggestedTerm = 10; const coverageGap = Math.max(netNeed, 0); return { yearsToRetirement, effectiveIncomeYears, incomeReplacement, educationFund, mortgagePayoff, debtPayoff, finalExpenseNeed, emergencyReserveNeed, grossNeed, offsets, netNeed, suggestedTerm, coverageGap, insuredIncomeShare, }; } function buildProjection(data, calc) { const labels = []; const needSeries = []; const existingSeries = []; const years = Math.max(calc.suggestedTerm, 10); for (let i = 0; i <= years; i++) { labels.push(`Year ${i}`); const incomeLeft = Math.max(calc.effectiveIncomeYears - i, 0); const incomeNeed = data.income * 0.7 * incomeLeft; const mortgageRemaining = Math.max(data.mortgage * (1 - i / Math.max(years, 1)), 0); const childYears = Math.min(18, years); const educationRemaining = i >= childYears ? 0 : data.children * data.educationPerChild * (1 - i / childYears); const otherDebtRemaining = Math.max(data.otherDebt * (1 - i / 8), 0); const staticNeeds = (i === 0 ? data.finalExpenses : data.finalExpenses * 0.5) + Math.max(data.emergencyFund * (1 - i / 5), 0); const rawNeed = incomeNeed + mortgageRemaining + educationRemaining + otherDebtRemaining + staticNeeds - data.savings; needSeries.push(Math.max(rawNeed, 0)); existingSeries.push(data.existingCoverage); } return { labels, needSeries, existingSeries }; } let needsChart; function renderChart(projection) { const ctx = $("needsChart").getContext("2d"); if (needsChart) { needsChart.destroy(); } needsChart = new Chart(ctx, { type: "line", data: { labels: projection.labels, datasets: [ { label: "Projected Need", data: projection.needSeries, borderColor: "#8ecae6", backgroundColor: "rgba(142, 202, 230, 0.10)", borderWidth: 2, fill: true, tension: 0.25, pointRadius: 0, }, { label: "Existing Coverage", data: projection.existingSeries, borderColor: "#6f1d2c", backgroundColor: "transparent", borderWidth: 2, borderDash: [6, 6], fill: false, tension: 0, pointRadius: 0, }, ], }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false, }, plugins: { legend: { labels: { color: "#d6deea", font: { size: 12, }, }, }, tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${currency(context.parsed.y)}`; } } } }, scales: { x: { ticks: { color: "#93a4ba", }, grid: { color: "rgba(255,255,255,0.05)", }, }, y: { ticks: { color: "#93a4ba", callback: function(value) { return currency(value); }, }, grid: { color: "rgba(255,255,255,0.05)", }, }, }, }, }); } function renderResults(data, calc) { $("pageTitle").textContent = `${data.clientName} — Insurance Needs Dashboard`; $("recommendedCoverage").textContent = currency(calc.netNeed); $("currentCoverage").textContent = currency(data.existingCoverage); $("coverageGap").textContent = currency(calc.coverageGap); $("suggestedTermValue").textContent = `${calc.suggestedTerm} Years`; $("termPill").textContent = `Suggested Term: ${calc.suggestedTerm} Years`; $("incomeReplacementOutput").textContent = currency(calc.incomeReplacement); $("educationOutput").textContent = currency(calc.educationFund); $("mortgageOutput").textContent = currency(calc.mortgagePayoff); $("debtOutput").textContent = currency(calc.debtPayoff); $("finalExpenseOutput").textContent = currency(calc.finalExpenseNeed); $("emergencyOutput").textContent = currency(calc.emergencyReserveNeed); $("assetsOffsetOutput").textContent = `-${currency(data.savings)}`; $("existingOffsetOutput").textContent = `-${currency(data.existingCoverage)}`; $("incomeDependencyRatio").textContent = percent(calc.insuredIncomeShare); $("yearsToRetirement").textContent = calc.yearsToRetirement; $("netNeedOutput").textContent = currency(calc.netNeed); let recommendation = ""; if (calc.netNeed <= 0) { recommendation = `${data.clientName} appears fully covered based on the current assumptions. Existing liquid assets and insurance offsets are sufficient to cover the modeled need. Review for policy quality, duration mismatch, and inflation risk before concluding no additional coverage is needed.`; } else { recommendation = `${data.clientName} shows an estimated coverage gap of ${currency(calc.netNeed)}. The recommendation is driven primarily by income replacement, debt payoff, and family obligation funding. A ${calc.suggestedTerm}-year term structure is a reasonable starting point under the current assumptions.`; } $("recommendationTitle").textContent = "Advisor Recommendation"; $("recommendationText").textContent = recommendation; } function analyze() { const data = getInputs(); const calc = calculateInsuranceNeeds(data); const projection = buildProjection(data, calc); renderResults(data, calc); renderChart(projection); } function resetDemo() { Object.entries(demoValues).forEach(([key, value]) => { $(key).value = value; }); analyze(); } $("calculateBtn").addEventListener("click", analyze); $("resetBtn").addEventListener("click", resetDemo); [ "clientName", "age", "retirementAge", "income", "spouseIncome", "incomeYears", "children", "educationPerChild", "mortgage", "otherDebt", "finalExpenses", "emergencyFund", "savings", "existingCoverage" ].forEach((id) => { $(id).addEventListener("input", () => { analyze(); }); }); analyze(); </script>
+</body>
+
+</html>
