@@ -46,6 +46,7 @@ main img {width: 150px;
     padding: 0%;
     background-color: antiquewhite
     color(black);
+    box-shadow: #000;
 }
 p {
     padding: 0px;
