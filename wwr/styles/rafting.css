@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #0b3c5d; /* deep river blue */
-    --secondary-color: #1d7874; /* teal water */
-    --accent1-color: #f4d35e; /* sun highlight */
-    --accent2-color: #ee6c4d; /* energy / action orange */
+    --primary-color: #0b3c5d;
+    --secondary-color: #1d7874;
+    --accent1-color: #f4d35e; 
+    --accent2-color: #ee6c4d;
     --heading-font: "Times New Roman", "Georgia", serif;
     --body-font: Arial, Helvetica, sans-serif;
 }
