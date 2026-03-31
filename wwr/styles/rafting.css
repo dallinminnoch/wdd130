@@ -107,6 +107,21 @@ section {
     color: var(--primary-color);
 }
 
+.hero article {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 12px;
+    max-width: 320px;
+}
+
+.hero article img {
+    float: right;
+    width: 125px;
+    margin-left: 12px;
+}
+
 .adventures {
     margin: 40px 0;
     text-align: center;
