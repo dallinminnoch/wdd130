@@ -1,8 +1,8 @@
 :root {
     --primary-color: #0b3c5d;
-
     --accent1-color: #f4d35e;
-
+    --secondary-color: #ffffff;
+    --text-on-light: #000000;
     --heading-font: "Times New Roman", "Georgia", serif;
     --body-font: Arial, Helvetica, sans-serif;
 }
@@ -42,6 +42,7 @@ nav a {
 body {
     font-family: var(--body-font);
     color: var(--primary-color);
+    background-color: var(--secondary-color)
 }
 
 .history {
@@ -111,7 +112,7 @@ section {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background-color: white;
+    background-color: var(--secondary-color);
     padding: 12px;
     max-width: 320px;
 }
