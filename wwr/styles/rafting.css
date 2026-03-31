@@ -1,7 +1,7 @@
 :root {
     --primary-color: #0b3c5d;
-   
-    --accent1-color: #f4d35e; 
+
+    --accent1-color: #f4d35e;
 
     --heading-font: "Times New Roman", "Georgia", serif;
     --body-font: Arial, Helvetica, sans-serif;
@@ -13,37 +13,83 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: var(--body-font);
-color: var(--primary-color);
+header {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: center;
+    padding: 16px 0;
 }
 
-header, main, footer {
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+nav a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+body {
+    font-family: var(--body-font);
+    color: var(--primary-color);
+}
+
+.history {
+    margin: 32px 16px;
+}
+
+.history h2 {
+    text-align: center;
+
+}
+
+.history-content {
+    display: grid;
+    grid-template-columns: 1fr 200px 1fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.history-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+header,
+main,
+footer {
     width: 840px;
     margin: 0 auto;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: var(--heading-font);
     color: var(--primary-color);
 }
-nav, p, section, article {
-    margin: 16px;
-    padding: 8px;
+
+p,
+section,
+{
+margin: 0;
+padding: 0;
 }
 
-
-.socialmedia a {
-    text-decoration: none;
-}
-
-.hero { 
+.hero {
     position: relative;
 
 }
-
-.hero article {
-    position: absolute; }
 
 .hero img {
     display: block;
@@ -62,10 +108,56 @@ nav, p, section, article {
     color: var(--primary-color);
 }
 
-.hero article img {
-    float: right;
-    width: 125px;
+.adventures {
+    margin: 40px 0;
+    text-align: center;
 }
 
+.adventure-gallery {
+    display: flex;
+    gap: 12px;
+}
 
+.adventure-gallery figure {
+    flex: 1;
+}
 
+.adventure-gallery img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.adventure-gallery figcaption {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+.socialmedia {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.socialmedia img {
+    width: 32px;
+    height: auto;
+    display: block;
+}
+
+.socialmedia a {
+    padding: 0;
+    text-decoration: none;
+}
